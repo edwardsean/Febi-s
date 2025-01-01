@@ -1,0 +1,254 @@
+html, body{
+    background-color: #31383f;
+    font-size : 50px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.container {
+    height : calc(100vh - 50px);
+    width : 100%;
+    display : grid;
+    grid-template-columns: 60px 2fr 3fr;
+    gap : 10px;
+    box-sizing: border-box;
+}
+
+.box{
+    background-color: 	#f5f5dc;
+    margin-top : 5px;
+    margin-bottom : 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* text */
+.text {
+    display : grid;
+    grid-template-rows: auto 1fr;
+    border-radius : 30px 10px 10px 30px;
+    max-width: 100%;
+    width : 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+}
+
+.content{
+    display : flex;
+    flex-direction: column;
+    width : 100%;
+    max-width: 100%;
+    overflow: auto;
+    height : 100%;
+    max-height: 100%;
+}
+
+
+.title{
+    display : inline-block;
+    height : auto;
+    font-weight : bold;
+    text-align: center;
+
+}
+
+.error{
+    color : red;
+    font-size : 20px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex : 1;
+    text-align: center;
+    margin-bottom : 10px;
+}
+
+
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc; /* Optional for visual debugging */
+    box-sizing: border-box; /* Ensures padding is included in height/width */
+}
+
+.submit-area{
+    display : flex;
+    padding : 10px;
+    justify-content: center;
+}
+
+textarea#write {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* Ensures padding and border are included in the width/height */
+    border: 1px solid #ccc; /* Optional border style */
+    padding: 10px; /* Add padding for better usability */
+    font-size: 16px; /* Adjust font size */
+    resize: none; /* Prevent resizing if you want to control the size */
+    text-align: start; /* Aligns text to the left */
+    vertical-align: top; /* Ensures text starts at the top */
+}
+
+#writing-box{
+    display : none;
+    grid-template-rows: 1fr auto;
+    height : 100%;
+}
+
+.posting-box{
+    display : none;
+    flex-direction: column;
+    gap : 10px;
+    padding : 10px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y : auto;
+    max-height: 100%;
+}
+
+.drafts::webkit-scrollbar {
+    width : 8px;
+}
+
+.drafts::webkit-scrollbar-thumb {
+    background-color: #A9C5E9;
+    border-radius : 10px;
+}
+
+.drafts::webkit-scrollbar {
+    width : 8px;
+}
+
+.drafts::-webkit-scrollbar-track {
+    background: #F9F6EE; 
+}
+
+.draft-wrap{
+    display : flex;
+    align-items: center;
+    margin-bottom : 10px;
+    margin-top : 10px;
+    margin-left : 10px;
+    padding : 10px;
+}
+
+.draft-select {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid gray;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.draft-select.selected {
+    background-color: blue;
+    border-color: blue;
+}
+
+.draft-bubble{
+    text-align: start;
+    word-wrap : break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    font-size: 15px;
+    padding : 10px;
+    background-color: #D4E5D5;
+    border-radius : 5px;
+    box-sizing : border-box;
+    max-width : 90%;
+    display : inline-block;
+}
+
+/*options*/
+.options{
+    background-color: #9F8C76 ;
+    display : flex;
+    flex-direction: column;
+    width : 100%;
+    justify-content: flex-start;
+    align-items: stretch;
+    box-sizing : border-box;
+    overflow: hidden;
+    padding : 5px;
+}
+
+.option-item {
+    cursor : pointer;
+    height : 50px;
+    width : 100%;
+    font-size : 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+    padding : 5px;
+    box-sizing: border-box;
+    
+}
+
+.option-item:hover {
+    color : white;
+}
+
+.option-item i {
+    font-size: 20px; /* Adjust the size of the icon */
+    margin-right: 5px; /* Add some space between the icon and text */
+    vertical-align: middle; /* Align the icon with the text */
+}
+
+.non-appear{
+    display : none;
+    justify-content: center;
+    align-items: center;
+    cursor : pointer;
+    height : 50px;
+    width : 100%;
+    font-size : 30px;
+    padding : 5px;
+    
+}
+
+.post-edit{
+    justify-content: space-evenly;
+    cursor : default;
+}
+
+.post-edit i {
+    cursor : pointer;
+}
+
+/*history*/
+
+.history{
+    border-radius: 10px 30px 30px 10px;
+}
+
+
+
+
+
+
