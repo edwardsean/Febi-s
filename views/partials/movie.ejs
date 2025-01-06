@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choices</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/header.css">
+    <link rel="stylesheet" href="/style/menu/movie.css">
+</head>
+<body>
+    <main>
+        <div class = "header">
+            <div class="backbutton">
+               
+
+
+            </div>
+          
+                <div id="search-bar">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Search movies..." 
+                        aria-label="Search movies"
+                    />
+                    <button id="search-button" aria-label="Search">
+                        <i class = "fa-solid fa-search"></i>
+                    </button>
+                </div>
+            
+        </div>
+
+        <div class="container">
+           
+                <% movies.forEach(movie => { %>
+                    <div class="movie-item">
+                        <!-- <img src="" alt="<%= movie.primaryTitle %>" /> -->
+                        <h3><%= movie.primaryTitle %></h3>
+                        <p><%= movie.type %></p>
+                        <span>Rating: <%= movie.averageRating %></span>
+                    </div>
+                <% }) %>
+            
+        </div>
+
+    </main>
+
+
+
+    <script>
+
+    </script>
+
+    </body>
+    </html>

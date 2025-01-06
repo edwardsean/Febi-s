@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choices</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/header.css">
+    <link rel="stylesheet" href="/style/menu/diary.css">
+   
+</head>
+<body>
+    <main>
+        <%- include("./header.ejs") %>
+
+
+        <div class = "container">
+            <div class="options">
+                    <!-- <div class="option-item" id = "start">
+                        <i class="fa-solid fa-pencil"></i>
+                    </div> -->
+                    <a href="/diary/new" class="option-item">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+            
+                    <div class="option-item" id = "delete">
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                    <div class="option-item" id = "select">
+                        <i class="fa-solid fa-list"></i>
+                    </div>
+            </div>
+            <div class="text box">
+                <div class="title">Draft</div>
+                <div class="content">
+                    
+                    <% if(locals.noDraft) { %>
+                    <div class="no-draft error">
+                        <h2 class = "zero-draft"> No Drafts </h2>
+                    </div>
+                    <% } %>
+                    
+
+                    <!-- <div class="drafts posting-box">
+
+                    </div> -->
+                    <% if(locals.drafts && locals.drafts.length > 0) { %>
+                    <ul class = "list">
+                        <% drafts.forEach(draft => { %>
+                            <li class = "draftBox">
+                                <div class="selectCircle" style = "display : none;">
+        
+                                </div>
+                                <div class="draft-contents">
+                                    <div class="header-drafts">
+                                        <div class="header-contents">
+                                            <h2>
+                                                <%= draft.title %>
+                                            </h2>
+                                            <small>
+                                                <%= draft.date %>
+                                            </small>
+                                        </div>
+                                        
+                                        <div class="edit-delete-buttons">
+                                        <a class="post" href="/diary/post/<%= draft.id%>">Post</a>
+                                        <a class="edit" href="/diary/edit/<%= draft.id%>">Edit</a>
+                                        <a class="delete" href="/diary/delete/<%= draft.id%>">Delete</a>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <p>
+                                        <%= draft.contents %>
+                                    </p>
+                                    <small> Written by: <%= draft.author%></small>
+                                </div>
+                                
+                            </li>
+                       <% }); %>
+                    </ul>
+                    <% } %>
+                   
+                    <div class="trash non-appear">
+                        <i class="fa-solid fa-trash" id="trash-icon"></i>
+                    </div>
+
+                    <div class="post-edit non-appear">
+                        <i class="fa-solid fa-upload" id = "upload"> Upload </i>
+                        <i class="fa-solid fa-pencil" id = "edit"> Edit </i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="history box">
+                <div class="title">Posts</div>
+                <div class="content">
+                    
+                    <% if(locals.noPost) { %>
+                    <div class="no-post error">
+                        <h2 class = "zero-post">No Posts</h2>
+                    </div>
+                    <% } %>
+                    
+                    <!-- <div class = "posts posting-box">
+
+                    </div> -->
+                    <% if(locals.posts && locals.posts.length > 0) { %>
+                        <ul class = "list">
+                            <% posts.forEach(post => { %>
+                                <li class = "postBox">
+                                    <div class="selectCircle" style = "display : none;">
+            
+                                    </div>
+                                    <div class="post-contents">
+                                        <div class="header-post">
+                                            <div class="header-contents">
+                                                <h2>
+                                                    <%= post.title %>
+                                                </h2>
+                                                <small>
+                                                    <%= post.date %>
+                                                </small>
+                                            </div>
+                                        
+                                            
+                                        </div>
+    
+                                        <p>
+                                            <%= post.contents %>
+                                        </p>
+                                        <small> Written by: <%= post.author%></small>
+                                    </div>
+                                    
+                                </li>
+                           <% }); %>
+                        </ul>
+                        <% } %>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+    
+    <script>
+
+    </script>
+    <script src="/js/diary.js" charset="UTF-8"></script>
+    </body>
+    </html>

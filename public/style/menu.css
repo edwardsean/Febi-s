@@ -41,18 +41,18 @@ main {
     user-select: none;
    
 }
-.game.choice:hover, .diary.choice:hover, .movie.choice:hover {
+.game.choice:hover, .diary.choice:hover, .movie.choice:hover, .change-password.choice:hover{
     background-color: rgba(176, 224, 230, 0.5); 
     transform: translateY(-10px); 
 }
 
-.game.choice h2, .diary.choice h2, .movie.choice h2 {
+.game.choice h2, .diary.choice h2, .movie.choice h2 ,.change-password.choice h2{
     position: relative;
     z-index: 1;
     transition: transform 0.3s; 
 }
 
-.game.choice:hover h2, .diary.choice:hover h2, .movie.choice:hover h2 {
+.game.choice:hover h2, .diary.choice:hover h2, .movie.choice:hover h2, .change-password:hover h2{
     transform: translateY(-100px); 
 }
 
@@ -69,7 +69,7 @@ main {
     user-select : none; 
 }
 
-.game.choice:hover .hover-text, .diary.choice:hover .hover-text, .movie.choice:hover .hover-text {
+.game.choice:hover .hover-text, .diary.choice:hover .hover-text, .movie.choice:hover .hover-text, .change-password:hover .hover-text {
     opacity: 1; /* Makes the hover text visible */
     z-index: 2; /* Brings the text to the front */
 }

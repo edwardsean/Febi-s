@@ -27,6 +27,7 @@ main {
     grid-template-columns: 60px 2fr 3fr;
     gap : 10px;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .box{
@@ -61,15 +62,6 @@ main {
     max-height: 100%;
 }
 
-
-.title{
-    display : inline-block;
-    height : auto;
-    font-weight : bold;
-    text-align: center;
-
-}
-
 .error{
     color : red;
     font-size : 20px;
@@ -84,110 +76,179 @@ main {
 
 
 
-.input-area {
+
+
+
+
+.draftBox {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc; /* Optional for visual debugging */
-    box-sizing: border-box; /* Ensures padding is included in height/width */
-}
-
-.submit-area{
-    display : flex;
-    padding : 10px;
-    justify-content: center;
-}
-
-textarea#write {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box; /* Ensures padding and border are included in the width/height */
-    border: 1px solid #ccc; /* Optional border style */
-    padding: 10px; /* Add padding for better usability */
-    font-size: 16px; /* Adjust font size */
-    resize: none; /* Prevent resizing if you want to control the size */
-    text-align: start; /* Aligns text to the left */
-    vertical-align: top; /* Ensures text starts at the top */
-}
-
-#writing-box{
-    display : none;
-    grid-template-rows: 1fr auto;
-    height : 100%;
-}
-
-.posting-box{
-    display : none;
-    flex-direction: column;
-    gap : 10px;
-    padding : 10px;
-    width: 100%;
-    height: 100%;
+    align-items: flex-start;
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    position: relative;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
     box-sizing: border-box;
-    overflow-y : auto;
-    max-height: 100%;
+    overflow: hidden;
 }
 
-.drafts::webkit-scrollbar {
-    width : 8px;
-}
-
-.drafts::webkit-scrollbar-thumb {
-    background-color: #A9C5E9;
-    border-radius : 10px;
-}
-
-.drafts::webkit-scrollbar {
-    width : 8px;
-}
-
-.drafts::-webkit-scrollbar-track {
-    background: #F9F6EE; 
-}
-
-.draft-wrap{
-    display : flex;
-    align-items: center;
-    margin-bottom : 10px;
-    margin-top : 10px;
-    margin-left : 10px;
-    padding : 10px;
-}
-
-.draft-select {
-    appearance: none;
+.selectCircle {
     width: 20px;
     height: 20px;
     border: 2px solid gray;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 15px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0;
 }
 
-.draft-select.selected {
+.selectCircle.selected {
     background-color: blue;
     border-color: blue;
 }
 
-.draft-bubble{
-    text-align: start;
-    word-wrap : break-word;
+.draft-contents {
+    flex-grow: 1;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.list li {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    text-align: left;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.list li h2 {
+    font-size: 24px;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.list li small {
+    font-size: 14px;
+    color: #888;
+    display: block;
+    margin-bottom: 5px;
+}
+.list li p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+    color: #555;
     overflow-wrap: break-word;
     white-space: normal;
-    font-size: 15px;
-    padding : 10px;
-    background-color: #D4E5D5;
-    border-radius : 5px;
-    box-sizing : border-box;
-    max-width : 90%;
-    display : inline-block;
+    max-width: 100%; /* Ensures text fits within the container */
+    overflow: hidden; /* Prevents overflow of unbreakable content */
+    text-overflow: ellipsis; /* Adds "..." for long content */
 }
+
+li{
+    margin-left : 50px;
+    margin-right : 50px;
+}
+
+a.edit {
+    background-color: #007bff;
+    /* margin-right: 10px; */
+  }
+  
+a.delete {
+    background-color: #e74c3c;
+}
+
+a.delete:hover {
+    background-color: #c0392b;
+  }
+
+a.post {
+    background-color: #2ecc71;
+}
+
+a{
+  text-decoration: none;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+a:hover{
+    background-color: #0056b3;
+}
+
+.header-drafts {
+    display: flex;
+    justify-content: space-between; /* Align title/date to the left and buttons to the right */
+    align-items: center; /* Vertically center content */
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd; /* Optional: separate header from content visually */
+}
+
+.header-contents {
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%; /* Ensures text fits within the container */
+    overflow: hidden; /* Prevents overflow of unbreakable content */
+    text-overflow: ellipsis; /* Adds "..." for long content */
+}
+
+.header-contents h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.header-contents small {
+    font-size: 12px;
+    color: #888;
+    margin: 2px 0 0;
+}
+
+.edit-delete-buttons {
+    display: flex;
+    gap: 10px; /* Add spacing between the buttons */
+}
+
+.edit-delete-buttons a {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+
 
 /*options*/
 .options{
-    background-color: #9F8C76 ;
+    background-color: #9F8C76;
     display : flex;
     flex-direction: column;
     width : 100%;
@@ -207,7 +268,7 @@ textarea#write {
     transition: all 0.2s ease;
     padding : 5px;
     box-sizing: border-box;
-    
+
 }
 
 .option-item:hover {

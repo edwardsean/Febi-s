@@ -4,22 +4,13 @@ choices.forEach(choice => {
     choice.addEventListener("click", () => {
         let selected = "";
         if(choice.classList.contains("game")){
-            selected = "game";
+            window.location.href = "game";
         } else if(choice.classList.contains("diary")){
-            selected = "diary";
+            window.location.href = "diary";
+        } else if(choice.classList.contains("movie")){
+            window.location.href = "movie";
         } else{
-            selected = "movie";
+            window.location.href = "/riddles/add-riddle";
         }
-
-        // fetch("/set-choice", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({choice: selected}),
-        // }).then(() => {
-            
-        // })
-        window.location.href = `/index?choice=${selected}`;
     });
 });

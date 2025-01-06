@@ -1,16 +1,26 @@
 let start = false;
 
-const riddle = [
-    "makanan kesukaan febi",
-    "makanan kesukaan sean",
-    "our first food",
-    "the drink that sean bought for febi for the first date",
-    "our fav song"
-]
-let boolArray = JSON.parse(localStorage.getItem("boolArray")) || new Array(riddle.length).fill(false);
-let count = parseInt(localStorage.getItem("count")) || 0;
+let riddle = []
+let boolArray = [];//JSON.parse(localStorage.getItem("boolArray")) || new Array(riddle.length).fill(false);
+let count = 0;//parseInt(localStorage.getItem("count")) || 0;
+
+async function fetchRiddle() {
+    try {
+        const response = await fetch("/riddles");
+        const data = await response.json();
+        riddle = data.map(item => item.riddlepass);
+        console.log("Riddle array: ", riddle); 
+    } catch (err) {
+        console.error("Error fetching riddles: ", err);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await fetchRiddle();
+});
 
 function chooseRiddle(){
+    
     if(count === riddle.length){
         boolArray = new Array(riddle.length).fill(false);
         count = 0;
@@ -47,33 +57,36 @@ function firstRiddleClick(start){
 document.getElementById("daily-password").addEventListener("click", () => {
     chooseRiddle();
     firstRiddleClick();
+    
 });
+
 
 
 
 const form = document.querySelector("form");
 const passbox = form.querySelector(".password");
 const passinput = passbox.querySelector("input");
-const currentriddle = document.getElementById("hidden-riddle");
+// const currentriddle = document.getElementById("hidden-riddle");
 
 form.onsubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/enter", {
+    const response = await fetch("/riddles/enter", { //get the response from index.js if success or fail
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
             password: passinput.value,
-            riddle: currentriddle.value,
+            // riddle: currentriddle.value,
         }),
     });
 
     const result = await response.json();
 
     if (result.success) {
-        window.location.href = "/index"; 
+        window.location.href = "/menu"; 
+        passinput.value = "";
     } else {
         passbox.classList.add("shake");
         passbox.classList.add("invalid");
