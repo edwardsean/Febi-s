@@ -4,13 +4,13 @@ import { resolveInclude } from "ejs";
 
 const router = express.Router();
 
-async function getAnswer(answer) {
+async function getAnswer(answer, currentriddle) {
     try {
-        const response = await db.query("SELECT * FROM riddle WHERE answer = $1",
-            [answer]
+        const response = await db.query("SELECT * FROM riddle WHERE riddlepass = $1 AND answer = $2",
+            [currentriddle, answer]
         );
-        console.log(answer, response.rows[0].answer);
-        return true;
+        console.log("match: ", response.rows, "answer: ", answer, "riddle: ", currentriddle);
+        return response.rows.length === 0 ? false : true;
     } catch (err) {
         return false;
     }
@@ -29,7 +29,10 @@ router.get("/", async (req, res) => {
 
 router.post("/enter", async (req, res) => { 
     const input = req.body.password,
-    answer = await getAnswer(input.toLowerCase());
+    currentriddle = req.body.riddle;
+    console.log('current: ',currentriddle.toLowerCase());
+    let answer = await getAnswer(input.toLowerCase(), currentriddle.toLowerCase());
+    console.log("ANSWER:", answer);
     if(answer) {
         res.json({success : true});
     } else {
@@ -48,7 +51,7 @@ router.post("/submitRiddle", async (req, res) => {
 
     try{
         await db.query("INSERT INTO riddle (riddlePass, answer) VALUES($1, $2)",
-            [riddleinput, answerinput]
+            [riddleinput.toLowerCase(), answerinput.toLowerCase()]
         );
         res.redirect("/");
     } catch(err) {

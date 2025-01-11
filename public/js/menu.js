@@ -6,9 +6,10 @@ choices.forEach(choice => {
         if(choice.classList.contains("game")){
             window.location.href = "game";
         } else if(choice.classList.contains("diary")){
-            window.location.href = "diary";
-        } else if(choice.classList.contains("movie")){
-            window.location.href = "movie";
+            // window.location.href = "diary";
+            window.location.href = "login";
+        } else if(choice.classList.contains("Itinerary")){
+            window.location.href = "Itinerary";
         } else{
             window.location.href = "/riddles/add-riddle";
         }

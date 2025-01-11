@@ -3,15 +3,19 @@ import {db} from "../index.js";
 
 const router = express.Router();
 
-async function getDraft() {
+let currentUser = "";
+
+async function getDraft(user) {
     
     try{
-        const response = await db.query("SELECT * FROM drafts");
-        
-        console.log(response.rows);
+        const response = await db.query("SELECT drafts.id, title, publish_date, contents, date, username FROM drafts JOIN users ON drafts.username = users.name WHERE username = $1",
+            [user]
+        );
         return response.rows;
     } catch (err) {
-        res.status(500).json({message : "Unable to fetch drafts"})
+        console.log(`Unable to fetch drafts from user ${user}`);
+        return [];
+        
     }
 
 }
@@ -21,7 +25,8 @@ async function getPost() {
         const response = await db.query("SELECT * FROM posts");
         return response.rows;
     } catch(err) {
-        res.status(500).json({message : "Unable to fetch posts"})
+        console.log("Unable to fetchposts");
+        return [];
     }
 }
 
@@ -30,24 +35,29 @@ async function deleteDraft(id) {
         await db.query("DELETE FROM drafts WHERE id = $1", [id]);
         return;
     } catch (err) {
-        res.status(500).json({message : "Unable to delete draft"});
+        console.log("Unable to delete draft");
     }
 }
 
 router.get("/", async (req, res) => {
+    const user = req.session.currentUser;
+    console.log("user is : ", user);
+    
     try {
-        const getDrafts = await getDraft();
+        const getDrafts = await getDraft(user);
         const getPosts = await getPost();
 
         const noDraft = getDrafts.length === 0;
         const noPost = getPosts.length === 0;
         
+        const today = new Date().toISOString().split("T")[0];
 
         res.render("partials/diary.ejs", {
             drafts : getDrafts, 
             posts : getPosts,
             noDraft : noDraft,
-            noPost : noPost
+            noPost : noPost,
+            today : today,
         });
     } catch (err) {
         console.log(err.message);
@@ -66,13 +76,13 @@ router.get("/new", (req, res) => {
 router.post("/editDraft/:id", async (req, res) => {
     const editedTitle = req.body.title,
     editedContent = req.body.content,
-    editedAuthor = req.body.author,
+    editedPublishDate = req.body.publish_date,
     date = req.body.time,
     id = parseInt(req.params.id);
-    console.log(editedTitle, editedContent, editedAuthor, date);
+    console.log(editedTitle, editedContent, editedPublishDate, date);
     try {
-        await db.query("UPDATE drafts SET title = $1, author = $2, contents = $3, date = $4 WHERE id = $5",
-            [editedTitle, editedAuthor, editedContent, date, id]
+        await db.query("UPDATE drafts SET title = $1, publish_date = $2, contents = $3, date = $4 WHERE id = $5",
+            [editedTitle, editedPublishDate, editedContent, date, id]
         );
         res.redirect("/diary");
     } catch (err) {
@@ -82,7 +92,7 @@ router.post("/editDraft/:id", async (req, res) => {
 
 router.get("/edit/:id", async (req, res) => {
     try {
-        const getDrafts = await getDraft();
+        const getDrafts = await getDraft(req.session.currentUser);
         const selected = getDrafts.find((draft) => draft.id == parseInt(req.params.id));
         console.log("SELECTED: ",selected);
         res.render("new.ejs", {
@@ -113,7 +123,7 @@ router.get("/post/:id", async (req, res) => {
    
     try{
       
-        await db.query("INSERT INTO posts (title, author, contents, date, draft_id) SELECT title, author, contents, date, id FROM drafts WHERE id = $1",
+        await db.query("INSERT INTO posts (title, author, contents, date, draft_id) SELECT title, username, contents, date, id FROM drafts WHERE id = $1",
            [id]
         );
    
@@ -128,15 +138,18 @@ router.get("/post/:id", async (req, res) => {
 router.post("/postDraft", async (req, res) => {
     const content = req.body.content,
     title = req.body.title,
-    author = req.body.author,
-    date = req.body.time;
-    console.log(content, title, author, date);
+    publish_Date = req.body.publish_date,
+    date = req.body.time,
+    user = req.session.currentUser;
+    console.log(content, title, publish_Date, date);
+    console.log("OIt", user);
     try{
-        await db.query("INSERT INTO drafts (title, author, contents, date) VALUES ($1, $2, $3, $4)",
-            [title, author, content, date]
+        await db.query("INSERT INTO drafts (title, publish_date, contents, date, username) VALUES ($1, $2, $3, $4, $5)",
+            [title, publish_Date, content, date, user]
         );
         res.redirect("/diary");
     } catch (err) {
+        console.log(err.message);
         res.status(500).json({message : "Unable to make draft"});
     }
 }); 

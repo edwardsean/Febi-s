@@ -4,6 +4,7 @@ let riddle = []
 let boolArray = [];//JSON.parse(localStorage.getItem("boolArray")) || new Array(riddle.length).fill(false);
 let count = 0;//parseInt(localStorage.getItem("count")) || 0;
 
+
 async function fetchRiddle() {
     try {
         const response = await fetch("/riddles");
@@ -66,7 +67,7 @@ document.getElementById("daily-password").addEventListener("click", () => {
 const form = document.querySelector("form");
 const passbox = form.querySelector(".password");
 const passinput = passbox.querySelector("input");
-// const currentriddle = document.getElementById("hidden-riddle");
+const currentriddle = document.getElementById("hidden-riddle");
 
 form.onsubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +79,7 @@ form.onsubmit = async (e) => {
         },
         body: JSON.stringify({
             password: passinput.value,
-            // riddle: currentriddle.value,
+            riddle: currentriddle.value,
         }),
     });
 

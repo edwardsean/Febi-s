@@ -30,7 +30,7 @@
                     </div>
             </div>
             <div class="text box">
-                <div class="title">Draft</div>
+                <div class="title">Drafts</div>
                 <div class="content">
                     
                     <% if(locals.noDraft) { %>
@@ -62,7 +62,9 @@
                                         </div>
                                         
                                         <div class="edit-delete-buttons">
-                                        <a class="post" href="/diary/post/<%= draft.id%>">Post</a>
+                                        <% if(draft.publish_date === today) { %>
+                                        <a class="post" href="/diary/post/<%= draft.id%>" id = "post-a">Post</a>
+                                        <% } %>
                                         <a class="edit" href="/diary/edit/<%= draft.id%>">Edit</a>
                                         <a class="delete" href="/diary/delete/<%= draft.id%>">Delete</a>
                                         </div>
@@ -72,7 +74,7 @@
                                     <p>
                                         <%= draft.contents %>
                                     </p>
-                                    <small> Written by: <%= draft.author%></small>
+                                    <small> Scheduled to post at: <%= draft.publish_date%></small>
                                 </div>
                                 
                             </li>
@@ -144,6 +146,7 @@
     </main>
     
     <script>
+        
 
     </script>
     <script src="/js/diary.js" charset="UTF-8"></script>
