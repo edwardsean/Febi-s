@@ -97,6 +97,11 @@ router.get("/list", async (req, res) => {
     console.log("From list : ", referrer)
     const checkList = await getCheckList();
     selected = checkList;
+    if(req.query.backToGallery) {
+        gallery = true;
+        addBool = false;
+        console.log("query - ", req.query.backToGallery);
+    }
     
     try{
         const countriesInCheckList = await getCheckList();
@@ -136,6 +141,10 @@ router.post("/add", async (req, res) => {
             res.status(500).json({message : "Unable to insert checklist"});
         }
     } else { //search country for gallery
+        const getWantedCountry = await getCountry();
+        const chosenCountry = getWantedCountry.find((country) => country.country_name.toLowerCase() == inputCountry.toLowerCase());
+        res.redirect(`/Itinerary/Gallery?country_name=${encodeURIComponent(chosenCountry.country_name)}&referrer=${encodeURIComponent("/Itinerary/list")}`);
+        console.log(chosenCountry);
 
     }
     

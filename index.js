@@ -12,6 +12,7 @@ import riddleRoute from "./route/riddleRoute.js";
 import itineraryRoute from "./route/ItineraryRoute.js";
 import loginRoute from "./route/loginRoute.js";
 import mediaRoute from "./route/mediaRoute.js";
+import gameRoute from "./route/gameRoute.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -34,6 +35,7 @@ db.connect();
 export {db} //export to routes
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads"))); //for media
+app.use("/gameUploads", express.static(path.join(process.cwd(), "gameUploads"))); //for media
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -51,6 +53,7 @@ app.use("/riddles", riddleRoute);
 app.use("/Itinerary", itineraryRoute);
 app.use("/login", loginRoute);
 app.use("/uploadMedia", mediaRoute);
+app.use("/game", gameRoute);
 
 
 //home

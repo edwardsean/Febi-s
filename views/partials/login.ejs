@@ -8,6 +8,8 @@
     
 </head>
 <body>
+
+    <%- include("./header.ejs")%>
     
     <% if(locals.login) { %>
         <form action="/login/LogIn" method = "POST" class = "container" id = "logInForm">
@@ -17,16 +19,16 @@
             <div class="input-wrap">
                 <div id="username-text-login">
                     <h3>User: </h1>
-                    <input type="text" name = "username" id = "username-input-login" placeholder = "What is your name" autocomplete = "off">
+                    <input type="text" name = "username" id = "username-input-login" placeholder = "What is your name" autocomplete = "off" required>
                 </div>
                 <div id="password-text-login">
                     <h3>Password: </h3>
-                    <input type="password" name = "password" id = "password-input-login" placeholder = "Password" autocomplete= "off">
+                    <input type="password" name = "password" id = "password-input-login" placeholder = "Password" autocomplete= "off" required>
                 </div>
             </div>
 
             <button type="submit">Log in</button>
-            <a href="/login/SignIn"> Sign In </a>
+            <a href="/login/SignIn?referrer=/login"> Sign In </a>
             
         </form>
     <% } %>
@@ -39,11 +41,11 @@
             <div class="input-wrap">
                 <div id="username-text-signin">
                     <h3>Name: </h1>
-                    <input type="text" name = "username" id = "username-input-signin" placeholder = "What is your name" autocomplete = "off">
+                    <input type="text" name = "username" id = "username-input-signin" placeholder = "What is your name" autocomplete = "off" required>
                 </div>
                 <div id="password-text-signin">
                     <h3>Password: </h3>
-                    <input type="password" name = "password" id = "password-input-signin" placeholder = "Password" autocomplete= "off">
+                    <input type="password" name = "password" id = "password-input-signin" placeholder = "Password" autocomplete= "off" required>
                 </div>
             </div>
 
@@ -59,6 +61,8 @@
             signInPassBox = document.getElementById("password-text-signin"),
             signInUsernameBox = document.getElementById("username-text-signin");
 
+            const referrer = "<%= typeof referrer !== 'undefined' ? referrer : '' %>";
+            console.log("OI PRINT REFERRER: ", referrer);
             signInform.onsubmit = async (e) => {
                 e.preventDefault();
 
@@ -71,15 +75,16 @@
                     body: JSON.stringify({
                         signInPassword: signInPass.value,
                         signInUser : signInUsername.value,
+                        referrer : referrer,
                     }),
                 });
 
                 const result = await response.json();
                 console.log(result);
                 if (result.success) {
-                    console.log("to LogIn");
-                    window.location.href = "/login"; 
-                    
+               
+                    window.location.href = result.referrer; //to game auth
+
                 } else {
                     signInPassBox.classList.add("shake");
                     signInPassBox.classList.add("invalid");

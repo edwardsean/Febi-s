@@ -1,0 +1,187 @@
+/* General Styling */
+
+html, body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #21252b;
+    color: #333;
+    height: 100%; /* Ensure html and body take full height */
+    overflow-x: hidden;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #292b2c;
+    color: white;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header #buttons a {
+    text-decoration: none;
+    margin-right: 10px;
+    color: white;
+    font-size: 1.2em;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.header #buttons a:hover {
+    color: #f39c12;
+}
+
+/* Main Container */
+.container {
+    height: calc(100vh - 60px); /* Full viewport height minus header */
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    padding: 20px;
+    background-color: #21252b;
+}
+
+h2 {
+    font-family: 'Press Start 2P', Arial, sans-serif; /* Example font */
+    font-size: 2rem; /* Adjust size as needed */
+    text-align: center;
+    margin-bottom: 10px;
+
+    /* Gradient and animation setup */
+    background: linear-gradient(90deg, darkblue, blue, lightblue, white);
+    background-size: 300%; /* Ensure smooth animation */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Hide original text color */
+
+    /* Animation */
+    animation: gradient-fade 3s infinite;
+}
+
+/* Keyframes for gradient animation */
+@keyframes gradient-fade {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/* Game Slide Styling */
+.game-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    width: 70%;
+    max-width: 1200px;
+    height: 60%; /* Use percentage to fit within container */
+    gap: 20px;
+    padding: 10px;
+    border-radius: 10px; /* Optional: Rounded corners */
+}
+
+/* Game Container for h1 and game-item */
+.game-container {
+    display: flex;
+    flex-direction: column; /* Stack h1 and game-item vertically */
+    align-items: center; /* Center align text and game-item */
+    width: 100%; /* Full width for consistency */
+    max-width: 300px; /* Optional: Limit max width */
+    margin-bottom: 20px; /* Add spacing between items */
+ 
+}
+
+/* Styling for h1 above the game-item */
+.game-container h1 {
+    font-size: 1.5rem;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin-bottom: 10px; /* Space between h1 and game-item */
+    color: #fff; /* White text for better visibility */
+}
+
+/* Game item styling */
+.game-item {
+    position: relative;
+    width: 100%; /* Make the game item span the full width of the container */
+    height: 200px; /* Set a fixed height for the game item */
+    overflow: hidden; /* Ensure no content overflows */
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for a card effect */
+    cursor: pointer; /* Make it clickable */
+    background-color: #fff; /* Fallback background in case image fails */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.5s ease-in-out; /* Smooth transitions for scaling and shadow */
+}
+
+/* Image styling inside the game-item */
+.game-item img {
+    width: 100%; /* Make the image fill the entire width of the game-item */
+    height: 100%; /* Make the image fill the entire height of the game-item */
+    object-fit: cover; /* Ensure the image scales properly without distortion */
+    border-radius: 8px; /* Match the border radius of the container */
+}
+
+/* Hover effect on the game-item */
+.game-item:hover {
+    transform: scale(2); /* Slightly increase the size */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Enhance the shadow for depth */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.5s ease-in-out; /* Apply same smooth transitions */
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.nav-btn.left {
+    left: 10px;
+}
+
+.nav-btn.right {
+    right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        max-width: 100%; /* Allow game-container to span full width */
+    }
+    .game-item {
+        height: 150px; /* Adjust height for smaller screens */
+    }
+    .nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2em;
+    }
+}

@@ -1,0 +1,291 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* Nice background gradient */
+    background: rgb(253, 227, 81);
+    font-family: 'Arial', sans-serif; /* or pick your favorite Google Font */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* 
+   The container uses a grid layout: 
+   1 row for header (the H1) 
+   1 big row for the game 
+   a 20px row for the timer 
+   1 row for the bottom (the choices). 
+*/
+.container {
+    display: grid;
+    text-align: center;
+    grid-template-rows: 2fr 4fr 20px 3fr;
+    height: 100vh; 
+    width: 100vw; 
+}
+
+/* 
+   The game container is centered, has a subtle box-shadow and a rounded border. 
+   Make it flexible/responsive by using max-width instead of fixed 800px. 
+*/
+#game-container {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    height: 500px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+/* The picture should fill its container nicely. */
+#picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 
+   The canvas sits on top of the picture. 
+   Cursor is none, so you can optionally add a custom cursor if desired. 
+*/
+#mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; 
+    cursor: none;
+}
+
+/* 
+   Choice buttons: 
+   - More padding
+   - Rounded corners
+   - Hover effect 
+   - A slight scale on hover for feedback 
+*/
+.choice {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 24px;
+    background-color: #fff;
+    border: 2px solid #48C6EF;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 80%;
+    outline: none; /* Remove blue focus outline */
+}
+
+/* A little hover effect for the buttons */
+.choice:hover {
+    background-color: #48C6EF;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(72, 198, 239, 0.5);
+}
+
+.choice.correct:hover {
+    background-color: #4CAF50;
+}
+
+.choice.incorrect:hover {
+    background-color: #F44336;
+}
+
+
+/*
+   The grid for the multiple-choice area. 
+   Each button gets its own cell in a 2x2 grid. 
+   Center them a bit more nicely.
+*/
+#choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+/* 
+   Make the main title stand out. 
+   We also align it in the center row.
+*/
+h1 {
+    width: 100%;
+    margin: 0;
+    align-self: center;
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Basic reset for paragraphs. */
+p {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* 
+   Timer styling: 
+   Give it a bigger font and color so it stands out. 
+   Optionally position it absolutely if you like.
+*/
+#timer {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-top: 5px;
+}
+
+/* 
+   The countdown overlay is a fullscreen dark overlay 
+   with a large text in the center. 
+*/
+#countdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 4rem;
+    z-index: 100; 
+}
+
+/*
+   The countdown text has a fade animation 
+   that you already set, but let's give it a glow effect 
+   to make it extra visible. 
+*/
+#countdown-text {
+    animation: fade 1s linear;
+    text-shadow: 0 0 10px #fff;
+}
+
+/*
+   Keyframe fade animations you already have. 
+   We'll keep those. 
+*/
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+@keyframes fade-forward {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* 
+   Hide elements when they have these classes. 
+   This is fine as is. 
+*/
+.hidden, 
+.hidden-endgame {
+    visibility: hidden;
+}
+
+/* 
+   End game screen styling: 
+   Give it a nice big, bright text, 
+   maybe on a translucent background if you want it overlay. 
+*/
+#endGame {
+    background-color: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    margin-top: 20px;
+}
+
+/* Correct answer: green fill */
+.correct {
+    background-color: #4CAF50; /* Green */
+    color: #fff;
+    animation: jump 0.5s ease; /* Jump animation */
+}
+
+/* Incorrect answer: red fill */
+.incorrect {
+    background-color: #F44336; /* Red */
+    color: #fff;
+    animation: shake 0.5s ease; /* Shake animation */
+}
+
+/* Jump animation */
+@keyframes jump {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+/* Shake animation */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}
+
+/* Slide out to the right */
+@keyframes slide-out-right {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Slide in from the left */
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Classes to trigger animations */
+.slide-out {
+    animation: slide-out-right 0.5s ease forwards;
+}
+
+.slide-in {
+    animation: slide-in-left 0.5s ease forwards;
+}

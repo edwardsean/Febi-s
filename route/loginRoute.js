@@ -18,6 +18,7 @@ async function confirmLogIn(username, password)  {
 
 
 router.get("/", (req, res) => {
+    
     res.render("partials/login.ejs", {
         login : true,
     });
@@ -37,14 +38,19 @@ router.post("/LogIn", async (req, res) => {
 });
 
 router.get("/SignIn", (req, res) => {
+    const referrer = req.query.referrer;
+    console.log(referrer);
     res.render("partials/login.ejs", {
         signIn : true,
+        referrer : referrer,
     });
 });
 
 router.post("/Register", async (req, res) => {
     const registerUsername = req.body.signInUser,
-    registerPassword = req.body.signInPassword;
+    registerPassword = req.body.signInPassword,
+    referrer = req.body.referrer || '';
+    console.log("DARI REGISTER: ", referrer);
     
     if(await confirmLogIn(registerUsername, registerPassword)) { //exist already
         res.json({success : false});
@@ -55,7 +61,7 @@ router.post("/Register", async (req, res) => {
             await db.query("INSERT INTO users (name, user_password) VALUES ($1, $2)",
             [registerUsername, registerPassword]
             );
-            res.json({success : true});
+            res.json({success : true, referrer : referrer});
         } catch(err) {
             res.status(500).json("Unable to insert to users");
         }
@@ -68,4 +74,4 @@ router.post("/Register", async (req, res) => {
 
 
 
-export default router;
+export default router; 

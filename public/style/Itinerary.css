@@ -631,45 +631,54 @@ li > span {
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space out buttons, main forms, and conditional form */
+  justify-content: space-between; /* Space out buttons and forms */
   background-color: #2f2f2f;
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative; /* Ensure relative positioning for absolute children */
+  position: relative;
+  width: 100%; /* Ensure it spans the full width */
+  box-sizing: border-box; /* Consistent box model */
 }
 
 
 #buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; /* Add spacing between buttons */
 }
 
 #buttons a {
-  text-decoration: none;
-  color: white;
-  background-color: #333;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: background-color 0.3s;
+  display: flex; /* Flex for centering the icon */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove underline */
+  color: white; /* White text color */
+  background-color: #333; /* Button background */
+  padding: 10px 15px; /* Padding for size */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Font size for text */
+  transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
-#buttons a:hover {
-  background-color: blue;
+#buttons i:hover {
+  color: #f39c12; /* Change background on hover */
+}
+
+#buttons i {
+  margin-right: 5px; /* Add spacing between the icon and text */
+  font-size: 16px; /* Icon size */
 }
 
 .forms-container {
   display: flex;
-  justify-content: center; /* Center main forms */
-  flex-grow: 1; /* Allow forms to occupy the central space */
+  justify-content: center; /* Center the forms */
+  flex-grow: 1; /* Allow it to grow in the available space */
 }
-
 .tab-view {
   display: flex;
-  flex-wrap: wrap; /* Wrap elements on smaller screens */
-  justify-content: center; /* Ensure elements stay centered */
-  gap: 15px; /* Add spacing between inputs and buttons */
+  flex-wrap: wrap; /* Wrap for responsive design */
+  justify-content: center; /* Center forms and labels */
+  gap: 15px; /* Add spacing between form elements */
 }
 
 .add-form {

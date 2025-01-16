@@ -167,9 +167,15 @@
         <div class="header">
             <!-- Buttons Section -->
             <div id="buttons">
+              <% if(locals.media) { %>
+              <a href="<%=referrer%>?backToGallery=true" class="back button">
+                <i class="fa-solid fa-arrow-left"></i>
+              </a>
+              <% } else { %>
               <a href="<%= referrer %>" class="back button">
                 <i class="fa-solid fa-arrow-left"></i>
               </a>
+              <% } %>
               <a href="/" class="home button">
                 <i class="fa-solid fa-house"></i>
               </a>
@@ -317,10 +323,10 @@
         if (!checkbox.checked) {
             galleryItem.classList.add("shake");
 
-            // Remove the shake class after the animation completes
+           
             setTimeout(() => {
                 galleryItem.classList.remove("shake");
-            }, 500); // Duration should match the animation duration in CSS
+            }, 500); 
             return;
         }
 
