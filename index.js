@@ -58,7 +58,7 @@ app.use("/game", gameRoute);
 
 //home
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/html/home.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 
